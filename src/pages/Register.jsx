@@ -4,9 +4,9 @@ import { Logo } from "../components";
 import Wrapper from "../assets/wrappers/RegisterPage";
 import FormRow from '../components/FormRow';
 import { toast } from "react-toastify";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, registerUser } from '../features/user/userSlice';
-
+import { useNavigate } from 'react-router-dom';
 const initialState = {
     name: "",
     email: "",
@@ -18,6 +18,8 @@ const Register = () => {
     const [values, setValues] = useState(initialState);
     const { name, email, password, isMember } = values;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user, isLoading } = useSelector(state => state.user);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setValues(prevState => {
@@ -57,6 +59,12 @@ const Register = () => {
         }
     })
 
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user])
+
     return (
         <Wrapper className="full-page">
             <form className="form" onSubmit={handleSubmit}>
@@ -81,8 +89,8 @@ const Register = () => {
                     name="password"
                     handleChange={handleChange}
                 />
-                <button type="submit" className="btn btn-block">
-                    submit
+                <button type="submit" className="btn btn-block" disabled={isLoading}>
+                    {isLoading ? "submitting..." : "submit"}
                 </button>
                 <p>
                     {values.isMember ? "Not a member yet?" : "Already a member?"}
