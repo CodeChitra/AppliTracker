@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { deleteJobThunk, getAllJobsThunk } from "./allJobsThunk";
-import customFetch from "../../utils/customFetch";
+import { deleteJobThunk, getAllJobsThunk, showStatsThunk } from "./allJobsThunk";
 
 const initialFiltersState = {
     search: "",
@@ -24,14 +23,7 @@ const initialState = {
 
 export const getAllJobs = createAsyncThunk("allJobs/getJobs", getAllJobsThunk);
 
-export const showStats = createAsyncThunk("allJobs/showStats", async (_, thunkAPI) => {
-    try {
-        const resp = await customFetch.get("/jobs/stats");
-        return resp.data;
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-})
+export const showStats = createAsyncThunk("allJobs/showStats", showStatsThunk);
 
 export const deleteJob = createAsyncThunk("allJobs/deleteJob", deleteJobThunk);
 const allJobsSlice = createSlice({
@@ -43,7 +35,19 @@ const allJobsSlice = createSlice({
         },
         hideLoading: (state) => {
             state.isLoading = false;
-        }
+        },
+        changeAllJobsInput: (state, { payload }) => {
+            const { name, value } = payload;
+            state[name] = value;
+            state.page = 1;
+        },
+        clearFilters: (state) => {
+            return { ...state, ...initialFiltersState };
+        },
+        changePage: (state, { payload }) => {
+            state.page = payload;
+        },
+        clearAllJobsState: () => initialState,
     },
     extraReducers: (builder) => {
         builder
@@ -51,6 +55,8 @@ const allJobsSlice = createSlice({
             .addCase(getAllJobs.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
                 state.jobs = payload.jobs
+                state.totalJobs = payload.totalJobs;
+                state.numOfPages = payload.numOfPages;
             })
             .addCase(getAllJobs.rejected, (state, { payload }) => {
                 state.isLoading = false;
@@ -75,5 +81,5 @@ const allJobsSlice = createSlice({
     }
 })
 
-export const { showLoading, hideLoading } = allJobsSlice.actions;
+export const { showLoading, hideLoading, changeAllJobsInput, clearFilters, changePage, clearAllJobsState } = allJobsSlice.actions;
 export default allJobsSlice.reducer;

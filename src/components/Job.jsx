@@ -46,7 +46,8 @@ const Job = ({
                             className="btn edit-btn"
                             onClick={() => {
                                 dispatch(setEditJob({
-                                    editJobId: _id, position,
+                                    editJobId: _id,
+                                    position,
                                     company,
                                     jobLocation,
                                     jobType,
