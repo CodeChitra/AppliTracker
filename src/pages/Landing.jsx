@@ -16,7 +16,7 @@ const Landing = () => {
                     <h1>
                         job <span>tracking</span> app
                     </h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente at alias voluptate architecto impedit aperiam, labore soluta maxime quia doloremque enim quasi voluptates, distinctio repellendus? Explicabo quam vero dicta ad.</p>
+                    <p>Welcome to AppliTracker, your job application companion. Stay organized and motivated with our intuitive graphs. Sign up today to simplify your job search and reach your career goals.</p>
                     <Link to='/register' className='btn btn-hero'>
                         Login / Register
                     </Link>
