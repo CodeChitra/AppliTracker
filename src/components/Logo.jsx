@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 const Logo = () => {
     return (
-        <Wrapper>CareerNavigator</Wrapper>
+        <Wrapper>AppliTracker</Wrapper>
     )
 }
 
