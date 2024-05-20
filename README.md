@@ -1,6 +1,6 @@
-# CareerNavigator - Your Career, Your Control
+# AppliTracker - Your Career, Your Control
 
-CareerNavigator is a web application that helps users track their job applications and visualize their progress through interactive graphs.
+AppliTracker is a web application that helps users track their job applications and visualize their progress through interactive graphs.
 
 ## Tech Stack
 
