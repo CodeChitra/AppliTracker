@@ -4,6 +4,8 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
     const { user } = useSelector((store) => store.user);
+    //Here we can not use useNavigate() Hook becasue we have to render a component here
+    
     if (!user) {
         return <Navigate to="/landing" />
     }
