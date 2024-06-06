@@ -1,8 +1,7 @@
 import axios from "axios";
 import { getUserFromLocalStorage } from "./localStorage";
 import { clearStore } from "../features/user/userSlice";
-// https://redux-toolkit-jobster-api-server.onrender.com/api/v1
-// https://jobify-prod.herokuapp.com/api/v1/toolkit
+// http://localhost:5000/api/v1
 const customFetch = axios.create({
   baseURL: "https://redux-toolkit-jobster-api-server.onrender.com/api/v1",
 });
